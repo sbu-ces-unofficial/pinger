@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"log"
 	"os"
 	"os/signal"
 	"strings"
@@ -43,6 +44,7 @@ func main() {
 
 	defer logFile.Close()
 	defer logger.Init("internet_connectivity", false, false, logFile).Close()
+	logger.SetFlags(log.Ldate | log.Lmicroseconds)
 
 	c := cron.New()
 	c.AddFunc("* * * * *", pingServer)
