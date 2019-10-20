@@ -18,10 +18,11 @@ import (
 const logPath = "internet_connectivity.log"
 
 var pingerCmd = &cobra.Command{
-	Use:   "pinger",
-	Short: "Pinger is an utility used to collect more data concerning network outages",
-	Long:  `A utility to help determine when network outage occurs and how much of the network is down.`,
-	Run:   pinger,
+	Use:     "pinger",
+	Short:   "Pinger is an utility used to collect more data concerning network outages",
+	Long:    `A utility to help determine when network outage occurs and how much of the network is down.`,
+	Version: "0.0.2",
+	Run:     pinger,
 }
 
 func pingServer() {
