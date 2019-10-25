@@ -9,10 +9,10 @@ import (
 	"syscall"
 
 	"github.com/PGo-Projects/output"
+	"github.com/PGo-Projects/pflags"
 	"github.com/glinton/ping"
 	"github.com/google/logger"
 	"github.com/robfig/cron/v3"
-	"github.com/sbu-ces-unofficial/pinger/internal/pflags"
 	"github.com/spf13/cobra"
 )
 
@@ -62,11 +62,23 @@ func pinger(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	config, err := pflags.Parse("config.pflags")
+	pflags.DebugMode = true
+	config, err := pflags.Parse("config.pflags", "report")
 	if err == nil {
 		output.Successln("Using configuration specified in config.pflags!")
-		externalURLs = config.Arrays["external_urls"]
-		internalURLs = config.Arrays["internal_urls"]
+
+		if urls, ok := config.Array.Get("external_urls"); ok {
+			externalURLs = make([]string, 0)
+			for _, url := range urls {
+				externalURLs = append(externalURLs, url.(string))
+			}
+		}
+		if urls, ok := config.Array.Get("internal_urls"); ok {
+			internalURLs = make([]string, 0)
+			for _, url := range urls {
+				internalURLs = append(internalURLs, url.(string))
+			}
+		}
 	}
 
 	logFile, err := os.OpenFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0664)
