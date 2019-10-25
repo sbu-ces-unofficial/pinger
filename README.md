@@ -1,6 +1,6 @@
 # pinger
 
-A utility to help determine when network outage occurs and how much of the network is done.
+A utility for monitoring and collecting information to troubleshoot network outages.
 
 ## Installation
 
@@ -19,13 +19,22 @@ under `Latest Release`.
 On Unix systems, run as (note that at the moment, `sudo` is required):
 
 ```bash
+sudo pinger [command]
+// OR
 sudo pinger [flags]
 ```
 
 On Windows systems, run as:
 ```bash
+pinger.exe [command]
+// OR
 pinger.exe [flags]
 ```
+
+Available commands:
+
+- `monitor`: Track when network outages occur and their severity
+- `report`: Generate a report of the network status
 
 Available flags:
 
@@ -37,12 +46,50 @@ Note:
   - As a result, logs are also created as root and can only be deleted by root
 - If the binary is not in your path and it is in the current directory, you would need to specify
   `./pinger` or `./pinger.exe`.
-- All results get logged to _internet_connectivity.log_.
+- All results from the `monitor` subcommand gets logged to _internet_connectivity.log_.
+- All results from the `report` subcommand gets logged to _connectivity_report.txt_.
 
 Examples:
 
 ```bash
+# On Unix
+
 # Pings google.com every minute and pings blackboard.stonybrook.edu if google.com cannot
 # be reached. Log the results.
-sudo pinger
+sudo pinger monitor
+
+# Pings google.com and blackboard.stonybrook.edu and logs the result.
+sudo pinger report
 ```
+
+## Configuring
+
+It is possible to configure the behavior of pinger with a _config.pflags_ file.
+
+The basic structure of _config.pflags_ for pinger:
+
+```
+[[monitor]]
+
+[external_urls]
+// all external urls you want to ping when running the monitor subcommand
+
+[internal_urls]
+// all internals url you want to ping when running the monitor subcommand
+
+[[report]]
+
+[external_urls]
+// all external urls you want to ping when running the report subcommand
+
+[internal_urls]
+// all internal urls you want to ping when running the report subcommand
+```
+
+Notes:
+
+- A sample `config.pflags` have been bundled with the binary in the release.  It is written to
+  follow the default behavior of `pinger` for the monitor subcommand and to follow the data
+  asked in the Google Forms for the report subcommand (stonybrook.edu/mycloud has been excluded
+  because it does return a valid ping result).
+- Please note that comments are not supported at this time and all urls should be in quotes.

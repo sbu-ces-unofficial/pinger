@@ -1,3 +1,11 @@
+[[monitor]]
+
+[external_urls]
+"google.com"
+
+[internal_urls]
+"blackboard.stonybrook.edu"
+
 [[report]]
 
 [external_urls]
@@ -8,4 +16,3 @@
 
 [internal_urls]
 "blackboard.stonybrook.edu"
-"stonybrook.edu/mycloud"
