@@ -23,7 +23,7 @@ var (
 
 var Cmd = &cobra.Command{
 	Use:   "monitor",
-	Short: "Track when network outage occurs and severity",
+	Short: "Track when network outages occur and their severity",
 	Long:  "A utility to help determine when network outage occurs and how much of the network is down.",
 	Run:   monitor,
 }
