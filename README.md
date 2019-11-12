@@ -1,6 +1,6 @@
 # pinger
 
-A utility for monitoring and collecting information to troubleshoot network outages.
+A utility that uses TCP pings for monitoring and collecting information to troubleshoot network outages.
 
 ## Installation
 
@@ -16,12 +16,12 @@ under `Latest Release`.
 
 ## Usage
 
-On Unix systems, run as (note that at the moment, `sudo` is required):
+On Unix systems (Note in 0.0.3 release and below, sudo is required):
 
 ```bash
-sudo pinger [command]
+pinger [command]
 // OR
-sudo pinger [flags]
+pinger [flags]
 ```
 
 On Windows systems, run as:
@@ -42,8 +42,8 @@ Available flags:
 - `--version`: get the version of pinger (useful for seeing how up-to-date your copy is)
 
 Note:
-- Administrator permission is required on Unix systems to make ICMP requests
-  - As a result, logs are also created as root and can only be deleted by root
+- For Unix machines, 0.0.3 release and below requires sudo privileges to make ICMP requests.  This
+  is no longer necessary as newer versions make use of TCP pings.
 - If the binary is not in your path and it is in the current directory, you would need to specify
   `./pinger` or `./pinger.exe`.
 - All results from the `monitor` subcommand gets logged to _internet_connectivity.log_.
