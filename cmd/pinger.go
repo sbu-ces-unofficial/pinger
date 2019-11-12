@@ -18,8 +18,8 @@ var (
 
 var pingerCmd = &cobra.Command{
 	Use:     "pinger",
-	Long:    "A utility for monitoring and collecting information to troubleshoot network outages.",
-	Version: "0.0.3",
+	Long:    "A utility that uses TCP pings for monitoring and collecting information to troubleshoot network outages.",
+	Version: "0.1.0",
 	Run:     pinger,
 }
 
