@@ -3,6 +3,7 @@ package report
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/PGo-Projects/output"
 	"github.com/PGo-Projects/pflags"
@@ -16,6 +17,8 @@ const logPath = "connectivity_report.txt"
 var (
 	externalURLs = []string{"google.com"}
 	internalURLs = []string{"blackboard.stonbyrook.edu"}
+
+	timeout = 1000 * time.Millisecond
 )
 
 var Cmd = &cobra.Command{
@@ -26,11 +29,6 @@ var Cmd = &cobra.Command{
 }
 
 func report(cmd *cobra.Command, args []string) {
-	if err := ping.Test(); err != nil {
-		output.Errorln(err)
-		os.Exit(1)
-	}
-
 	parseConfig()
 	logFile, err := os.OpenFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0664)
 	if err != nil {
@@ -41,7 +39,7 @@ func report(cmd *cobra.Command, args []string) {
 	defer logger.Init(logPath, true, false, logFile).Close()
 	logger.SetFlags(log.Ldate | log.Lmicroseconds)
 
-	ping.Ping(externalURLs, internalURLs)
+	ping.Ping(externalURLs, internalURLs, timeout)
 }
 
 func parseConfig() {

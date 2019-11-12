@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/PGo-Projects/output"
 	"github.com/PGo-Projects/pflags"
@@ -19,6 +20,8 @@ const logPath = "internet_connectivity.log"
 var (
 	externalURLs = []string{"google.com"}
 	internalURLs = []string{"blackboard.stonbyrook.edu"}
+
+	timeout = 1000 * time.Millisecond
 )
 
 var Cmd = &cobra.Command{
@@ -29,11 +32,6 @@ var Cmd = &cobra.Command{
 }
 
 func monitor(cmd *cobra.Command, args []string) {
-	if err := ping.Test(); err != nil {
-		output.Errorln(err)
-		os.Exit(1)
-	}
-
 	parseConfig()
 	logFile, err := os.OpenFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0664)
 	if err != nil {
@@ -46,7 +44,7 @@ func monitor(cmd *cobra.Command, args []string) {
 
 	c := cron.New()
 	c.AddFunc("* * * * *", func() {
-		ping.PingWithFallback(externalURLs, internalURLs)
+		ping.PingWithFallback(externalURLs, internalURLs, timeout)
 	})
 	c.Start()
 
