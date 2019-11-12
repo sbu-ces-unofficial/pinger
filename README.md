@@ -16,7 +16,7 @@ under `Latest Release`.
 
 ## Usage
 
-On Unix systems (Note in 0.0.3 release and below, sudo is required):
+On Unix systems (Note in 0.0.3 release and below, sudo was required):
 
 ```bash
 pinger [command]
