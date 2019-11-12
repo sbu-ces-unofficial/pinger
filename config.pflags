@@ -1,18 +1,18 @@
 [[monitor]]
 
 [external_urls]
-"google.com"
+"https://www.google.com"
 
 [internal_urls]
-"blackboard.stonybrook.edu"
+"https://blackboard.stonybrook.edu"
 
 [[report]]
 
 [external_urls]
-"www.newsday.com"
-"it.stonybrook.edu"
-"www.youtube.com"
-"www.facebook.com"
+"https://www.newsday.com"
+"https://it.stonybrook.edu"
+"https://www.youtube.com"
+"https://www.facebook.com"
 
 [internal_urls]
-"blackboard.stonybrook.edu"
+"https://blackboard.stonybrook.edu"
